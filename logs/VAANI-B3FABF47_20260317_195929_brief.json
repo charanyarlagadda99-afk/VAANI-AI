@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-B3FABF47",
+  "generated_at": "2026-03-17T19:59:29.924919",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near MG Road, Highway",
+    "people_affected": null,
+    "details": "big street accident happening here, need to send police to MG Cross immediately"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 45
+}

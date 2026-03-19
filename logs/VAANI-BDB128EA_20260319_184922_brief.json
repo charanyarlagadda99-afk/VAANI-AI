@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-BDB128EA",
+  "generated_at": "2026-03-19T18:49:22.824437",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "disaster",
+    "location": "Hyderabad district, near",
+    "people_affected": null,
+    "details": "a landslide has occurred near Hyderabad district"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "kannada",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ndrf",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 13
+}

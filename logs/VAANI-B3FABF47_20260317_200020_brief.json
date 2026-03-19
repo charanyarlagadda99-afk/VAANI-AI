@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-B3FABF47",
+  "generated_at": "2026-03-17T20:00:20.784161",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "MG Road, Highway, near Durgamma Temple Circle",
+    "people_affected": null,
+    "details": "Large street accident happening here, need police immediately."
+  },
+  "caller": {
+    "condition": "panicking",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 96
+}

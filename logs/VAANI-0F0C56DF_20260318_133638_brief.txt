@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-0F0C56DF
+GENERATED AT  : 2026-03-18 13:36:38
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : ACCIDENT
+SEVERITY      : 4/5 — HIGH
+LOCATION      : Royal Circle Bus Stand, near
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+Bus accident near Royal Circle Bus Stand
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : AMBULANCE, POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : Not required
+CALL DURATION : 13s
+LANGUAGE      : KANNADA
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-CBD4B439",
+  "generated_at": "2026-03-18T13:41:40.223408",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "ಬಳ್ಳಾರಿ ಬಸ್ ಸ್ಟಾಂಡ್ ರಾಯಲ್ ಸರ್ಕಲು, ಬಳ್ಳಾರಿ",
+    "people_affected": null,
+    "details": "ಬಸ್ ಸ್ಟಾಂಡ್ ರಾಯಲ್ ಸರ್ಕಲು ಅತ್ತರು ಎಕ್ಸಿಡೆಂಟ್ ಆಗಿದೆ"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "kannada",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 15
+}

@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-3910ADEE",
+  "generated_at": "2026-03-18T13:35:56.266971",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": null,
+    "people_affected": null,
+    "details": "car accident, bike involved"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "tamil",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 13
+}

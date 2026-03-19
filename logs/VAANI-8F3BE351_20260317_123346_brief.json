@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-8F3BE351",
+  "generated_at": "2026-03-17T12:33:46.339640",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near railway station",
+    "people_affected": 3,
+    "details": "accident with 2 more people involved"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 15
+}

@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-F8CEA861",
+  "generated_at": "2026-03-19T18:38:24.387834",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "fire",
+    "location": "near Charmin, Haraitra",
+    "people_affected": null,
+    "details": "fire accident near Charmin, Haraitra"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 12
+}

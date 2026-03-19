@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-9AF3EAD3
+GENERATED AT  : 2026-03-17 12:29:15
+PRIORITY      : 🟠 HIGH
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : ACCIDENT
+SEVERITY      : 3/5 — MODERATE
+LOCATION      : near railway station
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+big accident happened here, eye injury
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : AMBULANCE, POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : Not required
+CALL DURATION : 16s
+LANGUAGE      : HINDI
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

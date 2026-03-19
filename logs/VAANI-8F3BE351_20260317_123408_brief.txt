@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-8F3BE351
+GENERATED AT  : 2026-03-17 12:34:08
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : ACCIDENT
+SEVERITY      : 4/5 — HIGH
+LOCATION      : MG road
+PEOPLE        : 2
+CALLER STATE  : INJURED
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+Two people are injured in an accident on MG road
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : AMBULANCE, POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : Not required
+CALL DURATION : 37s
+LANGUAGE      : HINGLISH
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

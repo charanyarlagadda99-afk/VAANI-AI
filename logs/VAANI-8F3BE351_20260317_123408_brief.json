@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-8F3BE351",
+  "generated_at": "2026-03-17T12:34:08.517265",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "MG road",
+    "people_affected": 2,
+    "details": "Two people are injured in an accident on MG road"
+  },
+  "caller": {
+    "condition": "injured",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 37
+}

@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-BBDEC023",
+  "generated_at": "2026-03-19T19:03:28.857675",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "Hyderabad, Charminar First Cross, near Circle",
+    "people_affected": 10,
+    "details": "Car accident occurred near Circle at Charminar First Cross in Hyderabad. 10 people are standing nearby."
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 43
+}

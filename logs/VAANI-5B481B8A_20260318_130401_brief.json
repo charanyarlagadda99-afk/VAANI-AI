@@ -1,0 +1,29 @@
+{
+  "call_id": "VAANI-5B481B8A",
+  "generated_at": "2026-03-18T13:04:01.427877",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "NGO road bus stand, near railway station",
+    "people_affected": 2,
+    "details": "bus stand के पास एक अफवाहत हुआ है accident. दो लोग घायल है"
+  },
+  "caller": {
+    "condition": "injured",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police",
+      "CID"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 41
+}

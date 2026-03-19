@@ -1,0 +1,29 @@
+{
+  "call_id": "VAANI-2624B4C2",
+  "generated_at": "2026-03-18T13:52:28.538958",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Ballari railway station, Ballari",
+    "people_affected": null,
+    "details": "accident occurred at Ballari railway station bus stand near Subbarigere"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "kannada",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police",
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 16
+}

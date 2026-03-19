@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-1595C2B1
+GENERATED AT  : 2026-03-16 19:13:09
+PRIORITY      : 🟢 LOW
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : OTHER
+SEVERITY      : 1/5 — MINOR
+LOCATION      : ⚠️  NOT CONFIRMED — CALL BACK REQUIRED
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+caller started speaking but didn't complete the sentence
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : AMBULANCE, POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : ⚠️  Required
+CALL DURATION : 10s
+LANGUAGE      : HINDI
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

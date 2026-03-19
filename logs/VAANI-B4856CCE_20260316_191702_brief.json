@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-B4856CCE",
+  "generated_at": "2026-03-16T19:17:02.122055",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "M G Fifth Cross",
+    "people_affected": null,
+    "details": "A car accident occurred"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 12
+}

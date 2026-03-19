@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-CFA59E33",
+  "generated_at": "2026-03-19T18:24:18.129413",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Charminar, first cross Sarawat, Hyderabad",
+    "people_affected": 10,
+    "details": "car accident with 10 people injured, 2 people trapped"
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 41
+}

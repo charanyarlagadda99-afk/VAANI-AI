@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-5B481B8A",
+  "generated_at": "2026-03-18T13:03:38.104463",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "bus stand ke paas, [city not mentioned]",
+    "people_affected": 2,
+    "details": "bus stand ke paas accident hua hai, do log ghayal hain"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 17
+}

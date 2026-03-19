@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-742B26B5
+GENERATED AT  : 2026-03-16 19:16:16
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : CRIME
+SEVERITY      : 5/5 — CRITICAL
+LOCATION      : M 0 fifth cross, बैंगलोर
+PEOPLE        : 1
+CALLER STATE  : SAFE
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+murder
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : ⚠️  Required
+CALL DURATION : 25s
+LANGUAGE      : HINGLISH
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

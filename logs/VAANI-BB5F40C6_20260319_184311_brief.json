@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-BB5F40C6",
+  "generated_at": "2026-03-19T18:43:11.519203",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Nizam Nagar, Hyderabad",
+    "people_affected": 5,
+    "details": "car accident near Nizam Nagar, Hyderabad, 5 people affected"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 43
+}

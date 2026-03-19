@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-EC53E40A
+GENERATED AT  : 2026-03-16 21:19:50
+PRIORITY      : 🟢 LOW
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : OTHER
+SEVERITY      : 1/5 — MINOR
+LOCATION      : ⚠️  NOT CONFIRMED — CALL BACK REQUIRED
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+caller is confused about the purpose of the call
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : AMBULANCE, POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : ⚠️  Required
+CALL DURATION : 16s
+LANGUAGE      : ENGLISH
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

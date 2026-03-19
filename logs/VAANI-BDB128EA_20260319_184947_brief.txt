@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-BDB128EA
+GENERATED AT  : 2026-03-19 18:49:47
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : ACCIDENT
+SEVERITY      : 4/5 — HIGH
+LOCATION      : near Charminar Fast Cross, Hyderabad district
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+one person has been injured in an accident, caller requests police to be sent
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : POLICE, AMBULANCE
+FIRST AID     : Not administered
+FOLLOW UP     : Not required
+CALL DURATION : 38s
+LANGUAGE      : KANNADA
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

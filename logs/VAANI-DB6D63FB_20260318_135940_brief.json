@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-DB6D63FB",
+  "generated_at": "2026-03-18T13:59:40.942583",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "fire",
+    "location": "Royal Circle, 50 meters range",
+    "people_affected": null,
+    "details": "fire accident occurred 50 meters range from Royal Circle"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "fire",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 13
+}

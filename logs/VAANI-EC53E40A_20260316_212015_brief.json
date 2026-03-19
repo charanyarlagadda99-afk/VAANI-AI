@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-EC53E40A",
+  "generated_at": "2026-03-16T21:20:15.849740",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "N zero fifth cross",
+    "people_affected": 2,
+    "details": "Two people are injured at N zero fifth cross."
+  },
+  "caller": {
+    "condition": "injured",
+    "language": "english",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 42
+}

@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-B2E3257C",
+  "generated_at": "2026-03-17T19:54:31.982963",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "crime",
+    "location": null,
+    "people_affected": null,
+    "details": "street fight going on"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 18
+}

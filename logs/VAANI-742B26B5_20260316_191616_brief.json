@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-742B26B5",
+  "generated_at": "2026-03-16T19:16:16.322290",
+  "priority": "immediate",
+  "severity": 5,
+  "severity_label": "CRITICAL",
+  "emergency": {
+    "type": "crime",
+    "location": "M 0 fifth cross, बैंगलोर",
+    "people_affected": 1,
+    "details": "murder"
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 25
+}

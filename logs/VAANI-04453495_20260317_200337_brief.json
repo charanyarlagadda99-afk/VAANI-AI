@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-04453495",
+  "generated_at": "2026-03-17T20:03:37.662874",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "crime",
+    "location": "m g road fifth cross",
+    "people_affected": null,
+    "details": "straight fight occurred at m g road fifth cross"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 12
+}

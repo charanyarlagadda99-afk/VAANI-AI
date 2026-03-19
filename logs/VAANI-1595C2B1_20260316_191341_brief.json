@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-1595C2B1",
+  "generated_at": "2026-03-16T19:13:41.552951",
+  "priority": "immediate",
+  "severity": 3,
+  "severity_label": "MODERATE",
+  "emergency": {
+    "type": "accident",
+    "location": "MG Road 5th Cross, Bangalore",
+    "people_affected": null,
+    "details": "Car accident at MG Road 5th Cross, Bangalore"
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "english",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 42
+}

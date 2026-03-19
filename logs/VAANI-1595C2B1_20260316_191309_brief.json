@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-1595C2B1",
+  "generated_at": "2026-03-16T19:13:09.905832",
+  "priority": "low",
+  "severity": 1,
+  "severity_label": "MINOR",
+  "emergency": {
+    "type": "other",
+    "location": null,
+    "people_affected": null,
+    "details": "caller started speaking but didn't complete the sentence"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 10
+}

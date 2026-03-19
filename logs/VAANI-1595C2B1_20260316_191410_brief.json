@@ -1,0 +1,29 @@
+{
+  "call_id": "VAANI-1595C2B1",
+  "generated_at": "2026-03-16T19:14:10.747561",
+  "priority": "immediate",
+  "severity": 3,
+  "severity_label": "MODERATE",
+  "emergency": {
+    "type": "accident",
+    "location": "MG Road 5th Cross, Bangalore",
+    "people_affected": 3,
+    "details": "Car accident involving three vehicles, possible gas leak"
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "english",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police",
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": true
+  },
+  "call_duration_seconds": 71
+}

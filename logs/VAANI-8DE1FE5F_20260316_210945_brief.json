@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-8DE1FE5F",
+  "generated_at": "2026-03-16T21:09:45.169375",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "crime",
+    "location": "road cross, BANGALORE",
+    "people_affected": null,
+    "details": "murder occurred, another person needs help"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police",
+      "ambulance"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 59
+}

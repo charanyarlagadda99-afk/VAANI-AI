@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-42FDA2BD",
+  "generated_at": "2026-03-17T12:32:19.728139",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident|fire",
+    "location": null,
+    "people_affected": null,
+    "details": "Papa छोड़ते हैं accident हुई है और आग लगी"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 13
+}

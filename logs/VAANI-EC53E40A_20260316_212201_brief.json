@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-EC53E40A",
+  "generated_at": "2026-03-16T21:22:01.239448",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "N zero fifth cross, near Ramde Hospital, Bangalore",
+    "people_affected": 2,
+    "details": "Two people are injured. Suspected thief present."
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 147
+}

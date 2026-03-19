@@ -1,0 +1,29 @@
+{
+  "call_id": "VAANI-7D8A29D6",
+  "generated_at": "2026-03-19T18:45:00.215013",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Charminar, Hyderabad",
+    "people_affected": 10,
+    "details": "10 people got injured, 5 are critical"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police",
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 35
+}

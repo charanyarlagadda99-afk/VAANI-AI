@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-EDA5EAFA",
+  "generated_at": "2026-03-18T13:58:30.996930",
+  "priority": "low",
+  "severity": 1,
+  "severity_label": "MINOR",
+  "emergency": {
+    "type": "other",
+    "location": "Royal Circle building",
+    "people_affected": null,
+    "details": "Caller is asking for emergency assistance at Royal Circle building"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 17
+}

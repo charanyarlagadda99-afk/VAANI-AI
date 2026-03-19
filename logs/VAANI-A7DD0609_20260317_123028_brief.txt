@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-A7DD0609
+GENERATED AT  : 2026-03-17 12:30:28
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : FIRE
+SEVERITY      : 4/5 — HIGH
+LOCATION      : Opposite to Apollo Hospital, MG 16 Cross Bangalore
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+There is a fire. We have been trying to stop this.
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : FIRE
+FIRST AID     : Not administered
+FOLLOW UP     : Not required
+CALL DURATION : 47s
+LANGUAGE      : ENGLISH
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

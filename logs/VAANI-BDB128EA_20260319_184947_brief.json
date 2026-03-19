@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-BDB128EA",
+  "generated_at": "2026-03-19T18:49:47.718823",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Charminar Fast Cross, Hyderabad district",
+    "people_affected": null,
+    "details": "one person has been injured in an accident, caller requests police to be sent"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "kannada",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police",
+      "ambulance"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 38
+}

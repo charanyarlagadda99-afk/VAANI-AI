@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-A9061B65",
+  "generated_at": "2026-03-17T19:58:03.168798",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "crime",
+    "location": "near railway station, [city not mentioned]",
+    "people_affected": 2,
+    "details": "murder, two people severely injured"
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police",
+      "ambulance"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 15
+}

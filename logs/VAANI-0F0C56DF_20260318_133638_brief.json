@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-0F0C56DF",
+  "generated_at": "2026-03-18T13:36:38.144688",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "Royal Circle Bus Stand, near",
+    "people_affected": null,
+    "details": "Bus accident near Royal Circle Bus Stand"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "kannada",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 13
+}

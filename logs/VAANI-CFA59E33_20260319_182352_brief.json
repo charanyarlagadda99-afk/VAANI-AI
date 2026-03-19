@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-CFA59E33",
+  "generated_at": "2026-03-19T18:23:52.221937",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Charminar, first cross Sarawat",
+    "people_affected": null,
+    "details": "car accident near Charminar, first cross Sarawat"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 15
+}

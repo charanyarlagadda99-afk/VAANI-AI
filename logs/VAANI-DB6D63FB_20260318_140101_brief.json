@@ -1,0 +1,30 @@
+{
+  "call_id": "VAANI-DB6D63FB",
+  "generated_at": "2026-03-18T14:01:01.175207",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "fire|accident",
+    "location": "Royal Circle, 50 meters range, near railway station, Hyderabad",
+    "people_affected": 10,
+    "details": "Building fire accident, people trapped, near Royal Circle, 50 meters range, Hyderabad"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police",
+      "fire",
+      "ndrf"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 93
+}

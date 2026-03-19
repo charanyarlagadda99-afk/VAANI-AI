@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-EC53E40A",
+  "generated_at": "2026-03-16T21:19:50.063144",
+  "priority": "low",
+  "severity": 1,
+  "severity_label": "MINOR",
+  "emergency": {
+    "type": "other",
+    "location": null,
+    "people_affected": null,
+    "details": "caller is confused about the purpose of the call"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "english",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 16
+}

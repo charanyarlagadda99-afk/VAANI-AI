@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-76A9FC48",
+  "generated_at": "2026-03-17T13:01:21.979789",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "fire",
+    "location": "MG road bus stand, near railway station",
+    "people_affected": null,
+    "details": "bus stand near railway station is on fire"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 14
+}

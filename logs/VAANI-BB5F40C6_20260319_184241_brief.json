@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-BB5F40C6",
+  "generated_at": "2026-03-19T18:42:41.926612",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Hyderabad, Jamanagar",
+    "people_affected": null,
+    "details": "car accident near Hyderabad, Jamanagar"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 13
+}

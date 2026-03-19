@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-9AF3EAD3",
+  "generated_at": "2026-03-17T12:29:15.682921",
+  "priority": "high",
+  "severity": 3,
+  "severity_label": "MODERATE",
+  "emergency": {
+    "type": "accident",
+    "location": "near railway station",
+    "people_affected": null,
+    "details": "big accident happened here, eye injury"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 16
+}

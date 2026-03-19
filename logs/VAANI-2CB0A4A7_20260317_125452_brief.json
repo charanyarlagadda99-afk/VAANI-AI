@@ -1,0 +1,27 @@
+{
+  "call_id": "VAANI-2CB0A4A7",
+  "generated_at": "2026-03-17T12:54:52.215230",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "fire",
+    "location": "Hindi road with cross, [city not mentioned]",
+    "people_affected": null,
+    "details": "Aag lagee hai Hindi road with cross ke paas."
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "fire"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 16
+}

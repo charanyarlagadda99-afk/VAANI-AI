@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-304E79CE
+GENERATED AT  : 2026-03-17 20:07:05
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : CRIME
+SEVERITY      : 4/5 — HIGH
+LOCATION      : M08 fifth cross, [city not mentioned]
+PEOPLE        : 20
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+street fight, 20 people injured
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : POLICE, AMBULANCE
+FIRST AID     : Not administered
+FOLLOW UP     : ⚠️  Required
+CALL DURATION : 15s
+LANGUAGE      : HINGLISH
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

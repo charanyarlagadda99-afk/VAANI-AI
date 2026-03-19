@@ -1,0 +1,34 @@
+
+╔══════════════════════════════════════════════════════╗
+║              VAANI EMERGENCY DISPATCH BRIEF           ║
+╚══════════════════════════════════════════════════════╝
+
+CALL ID       : VAANI-CBD4B439
+GENERATED AT  : 2026-03-18 13:41:40
+PRIORITY      : 🔴 IMMEDIATE
+
+──────────────────────────────────────────────────────
+EMERGENCY DETAILS
+──────────────────────────────────────────────────────
+TYPE          : ACCIDENT
+SEVERITY      : 4/5 — HIGH
+LOCATION      : ಬಳ್ಳಾರಿ ಬಸ್ ಸ್ಟಾಂಡ್ ರಾಯಲ್ ಸರ್ಕಲು, ಬಳ್ಳಾರಿ
+PEOPLE        : Unknown
+CALLER STATE  : UNKNOWN
+
+──────────────────────────────────────────────────────
+SITUATION SUMMARY
+──────────────────────────────────────────────────────
+ಬಸ್ ಸ್ಟಾಂಡ್ ರಾಯಲ್ ಸರ್ಕಲು ಅತ್ತರು ಎಕ್ಸಿಡೆಂಟ್ ಆಗಿದೆ
+
+──────────────────────────────────────────────────────
+DISPATCH INSTRUCTIONS
+──────────────────────────────────────────────────────
+RESPOND UNITS : AMBULANCE, POLICE
+FIRST AID     : Not administered
+FOLLOW UP     : Not required
+CALL DURATION : 15s
+LANGUAGE      : KANNADA
+TRIAGE STATUS : ⚠️  Incomplete — verify on arrival
+
+══════════════════════════════════════════════════════

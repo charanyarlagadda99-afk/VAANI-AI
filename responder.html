@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VAANI — Responder Status</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --red: #ff2d2d;
+  --red-dim: rgba(255,45,45,0.2);
+  --red-glow: rgba(255,45,45,0.08);
+  --amber: #ff9500;
+  --amber-dim: rgba(255,149,0,0.2);
+  --green: #00ff87;
+  --green-dim: rgba(0,255,135,0.15);
+  --blue: #0ea5e9;
+  --blue-dim: rgba(14,165,233,0.15);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.15);
+  --bg: #030507;
+  --bg1: #080c10;
+  --bg2: #0c1218;
+  --bg3: #111820;
+  --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.12);
+  --text: #e2e8f0;
+  --text-dim: #64748b;
+  --text-faint: #1e293b;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content:'';
+  position: fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(255,45,45,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,45,45,0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none; z-index:0;
+}
+
+/* ── HEADER ── */
+.header {
+  position: sticky; top:0; z-index:50;
+  background: rgba(3,5,7,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--sans); font-size:1.1rem; font-weight:800;
+  letter-spacing:0.12em; color:#fff;
+}
+.logo em { font-style:normal; color:var(--red); text-shadow:0 0 16px var(--red); }
+
+.header-mid {
+  display: flex; align-items:center; gap:6px;
+}
+
+.hm-badge {
+  font-family: var(--mono); font-size:0.58rem;
+  padding: 2px 8px; border-radius:2px;
+  letter-spacing:0.1em; text-transform:uppercase;
+}
+
+.badge-ops { border:1px solid var(--red-dim); color:var(--red); background:var(--red-glow); }
+.badge-live { border:1px solid rgba(0,255,135,0.2); color:var(--green); background:var(--green-dim); }
+
+.live-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--green); box-shadow:0 0 6px var(--green);
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+@keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.7)} }
+
+.clock {
+  font-family:var(--mono); font-size:0.7rem; color:var(--text-dim); letter-spacing:0.06em;
+}
+
+/* ── MAIN GRID ── */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+  padding: 14px;
+  min-height: calc(100vh - 52px);
+  position: relative; z-index:1;
+}
+
+/* ── ACTIVE INCIDENTS STRIP (top full width) ── */
+.incidents-strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.incident-card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+.incident-card:hover { border-color:var(--border-bright); transform:translateY(-1px); }
+
+.incident-card::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+}
+
+.incident-card.active::before { background:linear-gradient(90deg,transparent,var(--red),transparent); animation:topLine 2s linear infinite; }
+.incident-card.responding::before { background:linear-gradient(90deg,transparent,var(--amber),transparent); animation:topLine 3s linear infinite; }
+.incident-card.resolved::before { background:linear-gradient(90deg,transparent,var(--green),transparent); }
+.incident-card.standby::before { background:var(--border); }
+
+@keyframes topLine {
+  0% { background-position:-200% 0; }
+  100% { background-position:200% 0; }
+}
+
+.inc-top {
+  display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;
+}
+
+.inc-type { font-weight:700; font-size:0.88rem; color:#fff; text-transform:capitalize; }
+.inc-id { font-family:var(--mono); font-size:0.58rem; color:var(--text-dim); margin-top:2px; }
+
+.inc-status-pill {
+  font-family:var(--mono); font-size:0.55rem; font-weight:700;
+  letter-spacing:0.1em; padding:2px 7px; border-radius:2px; text-transform:uppercase;
+}
+
+.pill-active { color:var(--red); background:var(--red-glow); border:1px solid var(--red-dim); animation:pillPulse 1s ease-in-out infinite; }
+.pill-responding { color:var(--amber); background:var(--amber-dim); border:1px solid var(--amber-dim); }
+.pill-resolved { color:var(--green); background:var(--green-dim); border:1px solid rgba(0,255,135,0.2); }
+.pill-standby { color:var(--text-dim); background:rgba(255,255,255,0.04); border:1px solid var(--border); }
+
+@keyframes pillPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+.inc-location {
+  font-family:var(--mono); font-size:0.65rem; color:var(--text-dim);
+  margin-bottom:8px; display:flex; align-items:center; gap:5px;
+}
+
+.inc-responders { display:flex; gap:5px; flex-wrap:wrap; }
+
+.resp-icon-chip {
+  display:flex; align-items:center; gap:4px;
+  font-size:0.62rem; padding:3px 8px; border-radius:3px;
+  font-family:var(--mono); font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+}
+
+.chip-ambulance { color:var(--red); background:var(--red-glow); border:1px solid var(--red-dim); }
+.chip-police { color:var(--blue); background:var(--blue-dim); border:1px solid rgba(14,165,233,0.2); }
+.chip-fire { color:var(--amber); background:var(--amber-dim); border:1px solid var(--amber-dim); }
+.chip-ndrf { color:var(--purple); background:var(--purple-dim); border:1px solid rgba(167,139,250,0.2); }
+
+.inc-time { font-family:var(--mono); font-size:0.6rem; color:var(--text-faint); margin-top:8px; }
+
+/* ── RESPONDER PANEL (left main) ── */
+.responder-panel {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex; flex-direction:column;
+}
+
+.panel-head {
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items:center; justify-content:space-between;
+}
+
+.panel-title {
+  font-family:var(--mono); font-size:0.6rem; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--text-dim);
+}
+
+.panel-count {
+  font-family:var(--mono); font-size:0.65rem; color:var(--text-dim);
+}
+
+.responder-list { flex:1; overflow-y:auto; padding:10px; }
+
+/* Responder unit card */
+.unit-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 8px;
+  display: flex; align-items:flex-start; gap:12px;
+  position: relative; overflow:hidden;
+  transition: all 0.3s;
+  animation: unitIn 0.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes unitIn {
+  from { opacity:0; transform:translateX(-10px); }
+  to { opacity:1; transform:translateX(0); }
+}
+
+.unit-card:hover { border-color:var(--border-bright); }
+
+/* Status indicator line */
+.unit-card::before {
+  content:''; position:absolute;
+  left:0; top:0; bottom:0; width:2px;
+}
+.unit-card.u-dispatched::before { background:var(--red); box-shadow:1px 0 8px var(--red); }
+.unit-card.u-enroute::before { background:var(--amber); box-shadow:1px 0 8px var(--amber); }
+.unit-card.u-onscene::before { background:var(--green); box-shadow:1px 0 8px var(--green); }
+.unit-card.u-standby::before { background:#374151; }
+.unit-card.u-returning::before { background:var(--blue); }
+
+.unit-icon-wrap {
+  width:36px; height:36px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+  background:var(--bg3); border:1px solid var(--border);
+}
+
+.unit-body { flex:1; min-width:0; }
+
+.unit-top {
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;
+}
+
+.unit-name { font-weight:700; font-size:0.8rem; color:#fff; }
+
+.unit-status {
+  font-family:var(--mono); font-size:0.58rem; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase; padding:2px 6px; border-radius:2px;
+}
+
+.us-dispatched { color:var(--red); background:var(--red-glow); border:1px solid var(--red-dim); animation:pillPulse 1s infinite; }
+.us-enroute { color:var(--amber); background:var(--amber-dim); border:1px solid var(--amber-dim); }
+.us-onscene { color:var(--green); background:var(--green-dim); border:1px solid rgba(0,255,135,0.2); }
+.us-standby { color:var(--text-dim); background:rgba(255,255,255,0.04); border:1px solid var(--border); }
+.us-returning { color:var(--blue); background:var(--blue-dim); border:1px solid rgba(14,165,233,0.2); }
+
+.unit-meta {
+  font-family:var(--mono); font-size:0.62rem; color:var(--text-dim);
+  margin-bottom:6px;
+}
+
+/* Progress bar — ETA */
+.eta-bar-wrap { display:flex; align-items:center; gap:8px; }
+
+.eta-bar-track {
+  flex:1; height:2px; background:rgba(255,255,255,0.05); border-radius:1px;
+}
+
+.eta-bar-fill {
+  height:100%; border-radius:1px;
+  transition: width 1s linear;
+}
+
+.ef-dispatched { background:var(--red); }
+.ef-enroute { background:var(--amber); }
+.ef-onscene { background:var(--green); }
+.ef-standby { background:#374151; }
+.ef-returning { background:var(--blue); }
+
+.eta-label {
+  font-family:var(--mono); font-size:0.6rem; color:var(--text-dim);
+  white-space:nowrap; min-width:40px; text-align:right;
+}
+
+.unit-action {
+  font-size:0.68rem; color:var(--text-dim); margin-top:5px;
+  font-style:italic; line-height:1.3;
+}
+
+/* ── TIMELINE PANEL (right) ── */
+.timeline-panel {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex; flex-direction:column;
+  overflow: hidden;
+}
+
+.timeline-feed { flex:1; overflow-y:auto; padding:10px 12px; }
+
+.tl-item {
+  display:flex; gap:10px; padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,0.025);
+  animation: tlIn 0.35s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes tlIn {
+  from { opacity:0; transform:translateY(6px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.tl-left {
+  display:flex; flex-direction:column; align-items:center; gap:0; width:16px; flex-shrink:0; padding-top:2px;
+}
+
+.tl-dot {
+  width:8px; height:8px; border-radius:50%; flex-shrink:0;
+}
+
+.tl-line { width:1px; flex:1; background:rgba(255,255,255,0.04); margin:3px 0; min-height:16px; }
+
+.tl-content { flex:1; min-width:0; }
+
+.tl-event {
+  font-size:0.72rem; color:var(--text); line-height:1.4; margin-bottom:2px;
+}
+
+.tl-event strong { color:#fff; font-weight:700; }
+
+.tl-time {
+  font-family:var(--mono); font-size:0.58rem; color:var(--text-faint); letter-spacing:0.04em;
+}
+
+.td-red { background:var(--red); box-shadow:0 0 6px var(--red); }
+.td-amber { background:var(--amber); box-shadow:0 0 6px var(--amber); }
+.td-green { background:var(--green); box-shadow:0 0 6px var(--green); }
+.td-blue { background:var(--blue); box-shadow:0 0 6px var(--blue); }
+.td-purple { background:var(--purple); }
+.td-gray { background:#374151; }
+
+/* ── STATS ROW ── */
+.stats-row {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:8px;
+  padding:10px; border-top:1px solid var(--border);
+}
+
+.mini-stat {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:6px; padding:8px 10px; text-align:center;
+}
+
+.ms-val {
+  font-family:var(--mono); font-size:1.1rem; font-weight:700; color:#fff;
+  line-height:1;
+}
+
+.ms-label {
+  font-size:0.55rem; color:var(--text-dim); text-transform:uppercase;
+  letter-spacing:0.08em; margin-top:3px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:#1e293b; border-radius:2px; }
+::-webkit-scrollbar-track { background:transparent; }
+
+/* ── DEMO INJECT BUTTON ── */
+.demo-btn {
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  font-family:var(--mono); font-size:0.62rem; letter-spacing:0.1em;
+  padding:8px 20px; background:var(--bg2); border:1px solid var(--border-bright);
+  border-radius:4px; color:var(--text-dim); cursor:pointer; z-index:99;
+  transition:all 0.2s; text-transform:uppercase;
+}
+.demo-btn:hover { color:#fff; border-color:var(--red-dim); background:var(--red-glow); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">VA<em>A</em>NI <span style="font-size:0.65rem;color:var(--text-dim);font-weight:400;letter-spacing:0.08em;">RESPONDER OPS</span></div>
+  <div class="header-mid">
+    <div class="live-dot"></div>
+    <span class="hm-badge badge-ops">Operations Center</span>
+    <span class="hm-badge badge-live">Live</span>
+  </div>
+  <div class="clock" id="clock">—</div>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP: ACTIVE INCIDENT CARDS -->
+  <div class="incidents-strip" id="incidentStrip">
+    <!-- populated by JS -->
+  </div>
+
+  <!-- LEFT: RESPONDER UNITS -->
+  <div class="responder-panel">
+    <div class="panel-head">
+      <div class="panel-title">Responder Units</div>
+      <div class="panel-count" id="unitCount">0 active</div>
+    </div>
+    <div class="responder-list" id="responderList"></div>
+    <div class="stats-row" id="statsRow">
+      <div class="mini-stat"><div class="ms-val" id="st-dispatched" style="color:var(--red)">0</div><div class="ms-label">Dispatched</div></div>
+      <div class="mini-stat"><div class="ms-val" id="st-enroute" style="color:var(--amber)">0</div><div class="ms-label">En Route</div></div>
+      <div class="mini-stat"><div class="ms-val" id="st-onscene" style="color:var(--green)">0</div><div class="ms-label">On Scene</div></div>
+      <div class="mini-stat"><div class="ms-val" id="st-standby" style="color:var(--text-dim)">0</div><div class="ms-label">Standby</div></div>
+      <div class="mini-stat"><div class="ms-val" id="st-resolved" style="color:var(--blue)">0</div><div class="ms-label">Resolved</div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: TIMELINE -->
+  <div class="timeline-panel">
+    <div class="panel-head">
+      <div class="panel-title">Action Timeline</div>
+      <button style="font-family:var(--mono);font-size:0.55rem;letter-spacing:0.08em;color:var(--text-faint);background:none;border:none;cursor:pointer;text-transform:uppercase;" onclick="clearTimeline()">Clear</button>
+    </div>
+    <div class="timeline-feed" id="timelineFeed">
+      <div style="padding:2rem;text-align:center;font-family:var(--mono);font-size:0.6rem;color:var(--text-faint);letter-spacing:0.08em;">
+        AWAITING DISPATCH
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button class="demo-btn" onclick="injectDemo()">⚡ Simulate Emergency Call</button>
+
+<script>
+// ── CLOCK ──
+function updateClock() {
+  document.getElementById("clock").textContent =
+    new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}) + " IST";
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── STATE ──
+const API = "http://localhost:8080";
+
+const UNIT_ICONS = {
+  ambulance: "🚑", police: "🚔", fire: "🔥", ndrf: "🪖",
+  coastguard: "⚓", traffic: "🚦", disaster: "🌊"
+};
+
+const UNIT_NAMES = {
+  ambulance: ["AMB-01 Bangalore Central","AMB-07 Koramangala","AMB-12 Whitefield","AMB-03 Electronic City"],
+  police: ["PCR-04 MG Road","PCR-11 Indiranagar","PCR-02 Koramangala","PCR-08 HSR Layout"],
+  fire: ["FS-01 Shivajinagar","FS-03 Marathahalli","FS-06 Jayanagar"],
+  ndrf: ["NDRF-1 Bangalore","NDRF-3 South Zone"]
+};
+
+const STATUS_SEQUENCE = ["dispatched","enroute","onscene"];
+const STATUS_ETA = { dispatched:95, enroute:60, onscene:100, standby:0, returning:30 };
+
+let incidents = [];
+let units = [];
+let timelineLog = [];
+let unitTimers = {};
+let statsCount = { dispatched:0, enroute:0, onscene:0, standby:0, resolved:0 };
+
+// ── TIMELINE ──
+function addTimeline(dotClass, html) {
+  const feed = document.getElementById("timelineFeed");
+  const item = document.createElement("div");
+  item.className = "tl-item";
+  const time = new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+  item.innerHTML = `
+    <div class="tl-left">
+      <div class="tl-dot ${dotClass}"></div>
+      <div class="tl-line"></div>
+    </div>
+    <div class="tl-content">
+      <div class="tl-event">${html}</div>
+      <div class="tl-time">${time}</div>
+    </div>`;
+  if (feed.children.length === 1 && feed.children[0].style.padding !== undefined && !feed.children[0].className) {
+    feed.innerHTML = "";
+  }
+  feed.insertBefore(item, feed.firstChild);
+  timelineLog.unshift({dot:dotClass, html, time});
+  if (feed.children.length > 40) feed.removeChild(feed.lastChild);
+}
+
+function clearTimeline() {
+  document.getElementById("timelineFeed").innerHTML =
+    `<div style="padding:2rem;text-align:center;font-family:var(--mono);font-size:0.6rem;color:var(--text-faint);letter-spacing:0.08em;">CLEARED</div>`;
+  timelineLog = [];
+}
+
+// ── RENDER INCIDENTS ──
+function renderIncidents() {
+  const strip = document.getElementById("incidentStrip");
+  if (!incidents.length) {
+    strip.innerHTML = `<div style="grid-column:1/-1;padding:1.5rem;text-align:center;font-family:var(--mono);font-size:0.65rem;color:var(--text-faint);letter-spacing:0.1em;background:var(--bg1);border:1px solid var(--border);border-radius:10px;">NO ACTIVE INCIDENTS — SYSTEM MONITORING</div>`;
+    return;
+  }
+  strip.innerHTML = incidents.slice(0,4).map(inc => {
+    const respHTML = inc.responders.map(r =>
+      `<span class="resp-icon-chip chip-${r}">${UNIT_ICONS[r]||"🚨"} ${r}</span>`
+    ).join('');
+    return `
+    <div class="incident-card ${inc.status}" onclick="focusIncident('${inc.id}')">
+      <div class="inc-top">
+        <div>
+          <div class="inc-type">${UNIT_ICONS[inc.type]||"📞"} ${inc.type}</div>
+          <div class="inc-id">${inc.id}</div>
+        </div>
+        <span class="inc-status-pill pill-${inc.status}">${inc.status}</span>
+      </div>
+      <div class="inc-location">📍 ${inc.location||"Location unknown"}</div>
+      <div class="inc-responders">${respHTML}</div>
+      <div class="inc-time">SEV ${inc.severity}/5 · Opened ${inc.time}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER UNITS ──
+function renderUnits() {
+  const list = document.getElementById("responderList");
+  const counts = { dispatched:0, enroute:0, onscene:0, standby:0, returning:0 };
+
+  if (!units.length) {
+    list.innerHTML = `<div style="padding:2rem;text-align:center;font-family:var(--mono);font-size:0.6rem;color:var(--text-faint);">NO UNITS ACTIVE</div>`;
+  } else {
+    list.innerHTML = units.map(u => {
+      counts[u.status] = (counts[u.status]||0) + 1;
+      const pct = STATUS_ETA[u.status] || 0;
+      return `
+      <div class="unit-card u-${u.status}">
+        <div class="unit-icon-wrap">${UNIT_ICONS[u.type]||"🚨"}</div>
+        <div class="unit-body">
+          <div class="unit-top">
+            <span class="unit-name">${u.name}</span>
+            <span class="unit-status us-${u.status}">${u.status}</span>
+          </div>
+          <div class="unit-meta">→ ${u.destination||"Unknown"}</div>
+          <div class="eta-bar-wrap">
+            <div class="eta-bar-track">
+              <div class="eta-bar-fill ef-${u.status}" style="width:${pct}%"></div>
+            </div>
+            <span class="eta-label">${u.eta||"—"}</span>
+          </div>
+          <div class="unit-action">${u.action||""}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById("unitCount").textContent = `${units.length} active`;
+  document.getElementById("st-dispatched").textContent = counts.dispatched||0;
+  document.getElementById("st-enroute").textContent = counts.enroute||0;
+  document.getElementById("st-onscene").textContent = counts.onscene||0;
+  document.getElementById("st-standby").textContent = counts.standby||0;
+}
+
+// ── ADVANCE UNIT STATUS ──
+function advanceUnit(unitId) {
+  const u = units.find(x=>x.id===unitId);
+  if (!u) return;
+  const seq = STATUS_SEQUENCE;
+  const idx = seq.indexOf(u.status);
+  if (idx < 0 || idx >= seq.length-1) return;
+
+  const nextStatus = seq[idx+1];
+  const prev = u.status;
+  u.status = nextStatus;
+
+  const msgs = {
+    enroute: { dot:"td-amber", html:`<strong>${u.name}</strong> — En route to ${u.destination}. ETA: ${u.eta}` },
+    onscene: { dot:"td-green", html:`<strong>${u.name}</strong> — Arrived on scene at <strong>${u.destination}</strong>. Engaging.` }
+  };
+
+  if (msgs[nextStatus]) {
+    addTimeline(msgs[nextStatus].dot, msgs[nextStatus].html);
+    u.action = nextStatus === "enroute" ? `En route — ETA ${u.eta}` : "On scene — active response";
+  }
+
+  if (nextStatus === "onscene") {
+    u.eta = "On scene";
+    // Auto-resolve after 30s
+    setTimeout(()=>resolveUnit(unitId), 30000);
+  }
+
+  renderUnits();
+  renderIncidents();
+}
+
+function resolveUnit(unitId) {
+  const u = units.find(x=>x.id===unitId);
+  if (!u) return;
+  addTimeline("td-blue", `<strong>${u.name}</strong> — Situation managed. Unit returning to base.`);
+  units = units.filter(x=>x.id!==unitId);
+
+  // Update incident
+  const inc = incidents.find(i=>i.id===u.incidentId);
+  if (inc) {
+    const remaining = units.filter(x=>x.incidentId===inc.id);
+    if (!remaining.length) {
+      inc.status = "resolved";
+      addTimeline("td-green", `Incident <strong>${inc.id}</strong> — All units returned. Case closed.`);
+      setTimeout(()=>{ incidents = incidents.filter(i=>i.id!==inc.id); renderIncidents(); }, 8000);
+    }
+  }
+
+  renderUnits();
+  renderIncidents();
+}
+
+// ── DISPATCH RESPONDERS FROM BRIEF ──
+function dispatchFromBrief(brief) {
+  const em = brief.emergency || {};
+  const dispatch = brief.dispatch || {};
+  const responders = dispatch.recommended_responders || [];
+  if (!responders.length) return;
+
+  const incidentId = `INC-${brief.call_id?.slice(-6)||Math.random().toString(36).slice(2,8).toUpperCase()}`;
+  const location = em.location || "Unknown Location";
+  const etype = em.type || "emergency";
+  const sev = brief.severity || 1;
+
+  // Create incident
+  const incident = {
+    id: incidentId,
+    type: etype,
+    location,
+    severity: sev,
+    status: "active",
+    responders,
+    time: new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false})
+  };
+  incidents.unshift(incident);
+  if (incidents.length > 4) incidents.pop();
+
+  addTimeline("td-red", `🚨 <strong>NEW INCIDENT ${incidentId}</strong> — ${etype.toUpperCase()} at ${location} · Severity ${sev}/5`);
+
+  // Dispatch each responder type
+  responders.forEach((rtype, i) => {
+    const names = UNIT_NAMES[rtype] || [`${rtype.toUpperCase()}-01`];
+    const name = names[Math.floor(Math.random()*names.length)];
+    const etaMins = 4 + Math.floor(Math.random()*8);
+    const uid = `${rtype}-${Date.now()}-${i}`;
+
+    const unit = {
+      id: uid,
+      type: rtype,
+      name,
+      status: "dispatched",
+      destination: location,
+      eta: `${etaMins} min`,
+      action: `Dispatched to ${location}`,
+      incidentId
+    };
+
+    units.unshift(unit);
+
+    addTimeline(
+      rtype==="ambulance"?"td-red":rtype==="police"?"td-blue":rtype==="fire"?"td-amber":"td-purple",
+      `${UNIT_ICONS[rtype]||"🚨"} <strong>${name}</strong> dispatched → ${location}`
+    );
+
+    // Progress through statuses
+    setTimeout(()=>advanceUnit(uid), 4000 + i*1000);
+    setTimeout(()=>advanceUnit(uid), (etaMins*60*1000*0.3) + i*500);
+  });
+
+  renderIncidents();
+  renderUnits();
+}
+
+// ── LOAD FROM SERVER ──
+let lastBriefCount = 0;
+let lastBriefs = [];
+
+async function loadFromServer() {
+  try {
+    const res = await fetch(`${API}/briefs?limit=5`);
+    const briefs = await res.json();
+
+    if (briefs.length > lastBriefCount) {
+      const newBriefs = briefs.slice(0, briefs.length - lastBriefCount);
+      newBriefs.forEach(b => dispatchFromBrief(b));
+    }
+    lastBriefCount = briefs.length;
+    lastBriefs = briefs;
+  } catch(e) {
+    // Server offline — demo mode still works
+  }
+}
+
+// ── DEMO SIMULATION ──
+const DEMO_SCENARIOS = [
+  {
+    emergency: { type:"accident", location:"Hosur Road, Electronic City, Bangalore", people_affected:3 },
+    dispatch: { recommended_responders:["ambulance","police"] },
+    severity: 4, priority:"high",
+    call_id:"DEMO-ACC001"
+  },
+  {
+    emergency: { type:"fire", location:"Residency Road, Shivajinagar, Bangalore", people_affected:8 },
+    dispatch: { recommended_responders:["fire","ambulance","police"] },
+    severity: 5, priority:"immediate",
+    call_id:"DEMO-FIR002"
+  },
+  {
+    emergency: { type:"medical", location:"Koramangala 5th Block, Bangalore", people_affected:1 },
+    dispatch: { recommended_responders:["ambulance"] },
+    severity: 3, priority:"medium",
+    call_id:"DEMO-MED003"
+  },
+  {
+    emergency: { type:"crime", location:"MG Road Metro Station, Bangalore", people_affected:2 },
+    dispatch: { recommended_responders:["police"] },
+    severity: 4, priority:"high",
+    call_id:"DEMO-CRM004"
+  },
+  {
+    emergency: { type:"disaster", location:"Bellandur Lake, HSR Layout, Bangalore", people_affected:15 },
+    dispatch: { recommended_responders:["ndrf","ambulance","police","fire"] },
+    severity: 5, priority:"immediate",
+    call_id:"DEMO-DIS005"
+  }
+];
+
+let demoIdx = 0;
+
+function injectDemo() {
+  const scenario = DEMO_SCENARIOS[demoIdx % DEMO_SCENARIOS.length];
+  scenario.call_id = `DEMO-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+  dispatchFromBrief(scenario);
+  demoIdx++;
+}
+
+function focusIncident(id) {
+  addTimeline("td-gray", `Incident <strong>${id}</strong> selected for review`);
+}
+
+// ── INIT ──
+loadFromServer();
+setInterval(loadFromServer, 3000);
+
+// Initial timeline message
+setTimeout(()=>{
+  addTimeline("td-blue", "Responder Operations Center — <strong>Online</strong>. Monitoring active.");
+  addTimeline("td-gray", "Connected to VAANI dispatch feed — India South region");
+}, 500);
+</script>
+</body>
+</html>

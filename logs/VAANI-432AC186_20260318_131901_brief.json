@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-432AC186",
+  "generated_at": "2026-03-18T13:19:01.475387",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "MG road bus stand, near",
+    "people_affected": 10,
+    "details": "bus stand accident, multiple people injured"
+  },
+  "caller": {
+    "condition": "panicking",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 14
+}

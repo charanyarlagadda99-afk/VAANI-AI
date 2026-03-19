@@ -1,0 +1,29 @@
+{
+  "call_id": "VAANI-DB6D63FB",
+  "generated_at": "2026-03-18T14:00:01.224337",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "fire",
+    "location": "Royal Circle, 50 meters range, near hotel and extra",
+    "people_affected": "10",
+    "details": "building fire, people trapped"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "fire",
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 34
+}

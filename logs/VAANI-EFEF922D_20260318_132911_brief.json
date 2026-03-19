@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-EFEF922D",
+  "generated_at": "2026-03-18T13:29:11.901978",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "Royal Circle Bashkan, Balari",
+    "people_affected": 2,
+    "details": "car accident, two people injured"
+  },
+  "caller": {
+    "condition": "safe",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 16
+}

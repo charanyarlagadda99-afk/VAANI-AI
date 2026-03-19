@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-304E79CE",
+  "generated_at": "2026-03-17T20:07:05.443058",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "crime",
+    "location": "M08 fifth cross, [city not mentioned]",
+    "people_affected": 20,
+    "details": "street fight, 20 people injured"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hinglish",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "police",
+      "ambulance"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": true,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 15
+}

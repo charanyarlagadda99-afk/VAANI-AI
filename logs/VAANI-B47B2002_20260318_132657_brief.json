@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-B47B2002",
+  "generated_at": "2026-03-18T13:26:57.067055",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Royal Circle Bus Stand, Hyderabad",
+    "people_affected": null,
+    "details": "car accident near Royal Circle Bus Stand"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "telugu",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 38
+}

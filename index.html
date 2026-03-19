@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VAANI — 112 Emergency AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Bengali:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2/dist/livekit-client.umd.min.js"></script>
+<style>
+:root {
+  --red: #ff2d2d;
+  --red-dim: rgba(255,45,45,0.18);
+  --red-glow: rgba(255,45,45,0.08);
+  --amber: #ff9500;
+  --amber-dim: rgba(255,149,0,0.18);
+  --green: #00ff87;
+  --green-dim: rgba(0,255,135,0.12);
+  --blue: #0ea5e9;
+  --blue-dim: rgba(14,165,233,0.12);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.12);
+  --bg: #060609;
+  --bg1: #0a0d12;
+  --bg2: #0f141a;
+  --bg3: #141b24;
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.13);
+  --text: #dde4ee;
+  --text-dim: #5a6a7e;
+  --text-faint: #1e2a36;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --rad: 10px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem 1rem 4rem;
+}
+
+/* subtle grid bg */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(255,45,45,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,45,45,0.025) 1px, transparent 1px);
+  background-size:36px 36px;
+  pointer-events:none; z-index:0;
+}
+
+.wrap { width:100%; max-width:500px; position:relative; z-index:1; }
+
+/* ── HEADER ── */
+.header { text-align:center; margin-bottom:1.75rem; }
+
+.logo {
+  font-family:var(--sans); font-size:2.8rem; font-weight:800;
+  letter-spacing:0.12em; color:#fff; line-height:1;
+}
+.logo em { font-style:normal; color:var(--red); text-shadow:0 0 24px var(--red); }
+
+.tagline { font-size:0.8rem; color:var(--text-dim); margin-top:0.35rem; letter-spacing:0.06em; }
+
+.emergency-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--red-glow); color:var(--red);
+  border:1px solid var(--red-dim); border-radius:2px;
+  font-family:var(--mono); font-size:0.6rem; font-weight:700;
+  padding:3px 10px; letter-spacing:0.12em; margin-top:0.5rem;
+}
+
+.badge-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--red); box-shadow:0 0 6px var(--red);
+  animation:bdot 1.5s ease-in-out infinite;
+}
+@keyframes bdot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── CALL CARD ── */
+.call-card {
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.25rem;
+  margin-bottom:10px;
+  position:relative; overflow:hidden;
+}
+
+/* ── STATUS ROW ── */
+.status-row {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:1.1rem; padding:0.65rem 0.9rem;
+  background:var(--bg2); border-radius:7px; border:1px solid var(--border);
+}
+
+.status-dot { width:9px; height:9px; border-radius:50%; background:#1e2a36; flex-shrink:0; }
+.status-dot.ready { background:var(--green); box-shadow:0 0 8px var(--green); }
+.status-dot.connecting { background:var(--amber); animation:bdot 0.8s infinite; }
+.status-dot.connected { background:var(--green); animation:bdot 1.5s infinite; }
+.status-dot.error { background:var(--red); }
+.status-text { font-size:0.8rem; color:var(--text-dim); }
+.status-text strong { color:#fff; }
+
+/* ── TRANSCRIPT ── */
+.transcript-live {
+  background:var(--bg); border:1px solid var(--border);
+  border-radius:10px; padding:0.9rem;
+  min-height:150px; max-height:200px; overflow-y:auto;
+  margin-bottom:1.1rem;
+}
+
+.tl-label {
+  font-family:var(--mono); font-size:0.58rem; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--text-faint); margin-bottom:0.65rem;
+  display:flex; align-items:center; gap:6px;
+}
+
+.live-dot { width:5px; height:5px; border-radius:50%; background:var(--text-faint); }
+.live-dot.on { background:var(--red); box-shadow:0 0 5px var(--red); animation:bdot 1s infinite; }
+
+.tl-empty {
+  display:flex; align-items:center; justify-content:center;
+  height:80px; font-family:var(--mono); font-size:0.65rem;
+  color:var(--text-faint); letter-spacing:0.06em;
+}
+
+.tl-entry { display:flex; gap:8px; margin-bottom:0.6rem; animation:tlIn 0.3s ease both; }
+@keyframes tlIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
+.tl-avatar {
+  width:24px; height:24px; border-radius:50%; flex-shrink:0; margin-top:2px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.55rem; font-weight:700;
+}
+.av-vaani { background:var(--red-glow); color:var(--red); border:1px solid var(--red-dim); }
+.av-you   { background:var(--green-dim); color:var(--green); border:1px solid rgba(0,255,135,0.2); }
+
+.tl-bubble-wrap { flex:1; }
+.tl-name { font-size:0.58rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:2px; }
+.tl-name.v { color:var(--red); }
+.tl-name.y { color:var(--green); }
+
+.tl-text {
+  font-size:0.82rem; color:var(--text); line-height:1.5;
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:0 8px 8px 8px; padding:6px 10px;
+}
+.tl-text.vt { border-color:var(--red-dim); background:rgba(255,45,45,0.04); }
+.tl-text.yt { border-color:rgba(0,255,135,0.15); background:rgba(0,255,135,0.03); border-radius:8px 0 8px 8px; }
+
+.typing-ind { display:none; align-items:center; gap:6px; padding:4px 0; }
+.typing-ind.on { display:flex; }
+.td { width:5px; height:5px; border-radius:50%; background:var(--red); animation:typ 1.2s infinite; }
+.td:nth-child(2){animation-delay:0.2s} .td:nth-child(3){animation-delay:0.4s}
+@keyframes typ { 0%,100%{opacity:0.2;transform:scale(0.7)} 50%{opacity:1;transform:scale(1)} }
+.tl-text { font-size:0.82rem; }
+
+/* ── VISUALIZER ── */
+.viz {
+  display:flex; align-items:center; justify-content:center;
+  gap:2.5px; height:36px; margin:0.75rem 0;
+}
+.vbar { width:3px; border-radius:2px; background:var(--bg3); min-height:3px; transition:height 0.08s ease; }
+.vbar.r { background:var(--red); }
+.vbar.g { background:var(--green); }
+
+/* ── BUTTONS ── */
+.btn {
+  width:100%; padding:0.95rem; border:none; border-radius:10px;
+  font-family:var(--sans); font-size:0.92rem; font-weight:700;
+  cursor:pointer; transition:all 0.2s; letter-spacing:0.04em; margin-bottom:0.5rem;
+}
+.btn-call { background:var(--red); color:#fff; }
+.btn-call:hover:not(:disabled) { background:#e0202020; filter:brightness(1.1); transform:translateY(-1px); }
+.btn-call:disabled { background:#1e2a36; color:var(--text-dim); cursor:not-allowed; transform:none; }
+.btn-end { background:transparent; color:var(--red); border:1px solid var(--red-dim); }
+.btn-end:hover:not(:disabled) { background:var(--red-glow); }
+.btn-end:disabled { border-color:var(--border); color:var(--text-faint); cursor:not-allowed; }
+
+.mute-btn {
+  width:100%; padding:0.5rem; border-radius:8px;
+  border:1px solid var(--border); background:var(--bg2);
+  color:var(--text-dim); font-family:var(--sans); font-size:0.75rem;
+  cursor:pointer; transition:all 0.2s; margin-top:4px;
+}
+.mute-btn:hover { background:var(--bg3); color:#fff; }
+.mute-btn.muted { border-color:var(--red-dim); color:var(--red); }
+
+/* info grid */
+.info-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-top:0.85rem; }
+.ig-cell { background:var(--bg2); border:1px solid var(--border); border-radius:7px; padding:0.55rem 0.7rem; }
+.ig-label { font-family:var(--mono); font-size:0.55rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:3px; }
+.ig-val { font-family:var(--mono); font-size:0.8rem; color:#fff; font-weight:700; }
+
+/* ── LANG MODAL ── */
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.88); z-index:100;
+  align-items:center; justify-content:center;
+  backdrop-filter:blur(8px);
+}
+.modal-overlay.on { display:flex; }
+.modal {
+  background:var(--bg1); border:1px solid var(--border-hi);
+  border-radius:18px; padding:1.75rem; width:90%; max-width:420px;
+  animation:modIn 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes modIn { from{opacity:0;transform:scale(0.94)} to{opacity:1;transform:scale(1)} }
+
+.mod-title { font-size:1.05rem; font-weight:700; color:#fff; text-align:center; margin-bottom:3px; }
+.mod-sub { font-family:var(--mono); font-size:0.62rem; color:var(--text-dim); text-align:center; margin-bottom:1.25rem; letter-spacing:0.06em; }
+
+.lang-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-bottom:1rem; }
+
+.lang-btn {
+  background:var(--bg2); border:1px solid var(--border); border-radius:10px;
+  padding:0.75rem; cursor:pointer; transition:all 0.2s;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  font-family:var(--sans);
+}
+.lang-btn:hover { border-color:var(--red-dim); background:var(--red-glow); transform:translateY(-1px); }
+.lang-btn.sel { border-color:var(--red); background:rgba(255,45,45,0.1); }
+.lang-flag { font-size:1.3rem; }
+.lang-name { font-size:0.8rem; font-weight:700; color:#fff; }
+.lang-native { font-size:0.65rem; color:var(--text-dim); }
+
+.mod-confirm {
+  width:100%; padding:0.85rem; background:var(--red); border:none;
+  border-radius:10px; color:#fff; font-family:var(--sans);
+  font-size:0.88rem; font-weight:700; cursor:pointer; transition:all 0.2s;
+}
+.mod-confirm:hover:not(:disabled) { filter:brightness(1.1); }
+.mod-confirm:disabled { background:#1e2a36; color:var(--text-dim); cursor:not-allowed; }
+.mod-cancel {
+  width:100%; padding:0.5rem; background:transparent; border:none;
+  color:var(--text-dim); font-family:var(--sans); font-size:0.75rem;
+  cursor:pointer; margin-top:6px; transition:color 0.2s;
+}
+.mod-cancel:hover { color:#fff; }
+
+.lang-badge {
+  display:none; align-items:center; gap:7px;
+  background:var(--red-glow); border:1px solid var(--red-dim);
+  border-radius:7px; padding:5px 10px; margin-bottom:0.9rem;
+  font-family:var(--mono); font-size:0.68rem; color:var(--red); letter-spacing:0.06em;
+}
+.lang-badge.on { display:flex; }
+
+/* ─────────────────────────────────────────────
+   LIVE STATUS TRACKER SECTION
+───────────────────────────────────────────── */
+
+.status-tracker {
+  display:none;
+  flex-direction:column; gap:10px;
+  animation:trackerIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+.status-tracker.on { display:flex; }
+
+@keyframes trackerIn {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Section divider */
+.section-divider {
+  display:flex; align-items:center; gap:10px; margin:4px 0;
+}
+.section-divider-line { flex:1; height:1px; background:var(--border); }
+.section-divider-label {
+  font-family:var(--mono); font-size:0.58rem; color:var(--text-dim);
+  letter-spacing:0.12em; text-transform:uppercase;
+}
+
+/* ── INCIDENT HEADER ── */
+.incident-header {
+  background:var(--bg1); border:1px solid var(--red-dim);
+  border-radius:12px; padding:1rem 1.1rem;
+  position:relative; overflow:hidden;
+}
+
+.incident-header::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--red), transparent);
+  animation:scanH 2s linear infinite;
+}
+@keyframes scanH { 0%{background-position:-100% 0} 100%{background-position:200% 0} }
+
+.inc-row1 { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+
+.inc-type-wrap { display:flex; align-items:center; gap:10px; }
+.inc-emoji { font-size:1.5rem; }
+
+.inc-type-label {
+  font-size:1rem; font-weight:800; color:#fff; text-transform:capitalize;
+  letter-spacing:0.04em;
+}
+.inc-id-label { font-family:var(--mono); font-size:0.6rem; color:var(--text-dim); margin-top:2px; }
+
+.inc-sev {
+  text-align:right;
+}
+.sev-number {
+  font-family:var(--mono); font-size:1.6rem; font-weight:700; line-height:1;
+}
+.sev-number.s5 { color:var(--red); text-shadow:0 0 20px var(--red); }
+.sev-number.s4 { color:var(--amber); text-shadow:0 0 16px var(--amber); }
+.sev-number.s3 { color:#eab308; }
+.sev-number.s2 { color:var(--blue); }
+.sev-number.s1 { color:var(--green); }
+
+.sev-label {
+  font-family:var(--mono); font-size:0.58rem; color:var(--text-dim); margin-top:2px; letter-spacing:0.1em;
+}
+
+.inc-location {
+  font-family:var(--mono); font-size:0.7rem; color:var(--text-dim);
+  display:flex; align-items:center; gap:6px;
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:6px; padding:6px 10px;
+}
+.inc-location span { color:var(--text); }
+
+/* ── RESPONDER CARDS ── */
+.responder-cards { display:flex; flex-direction:column; gap:8px; }
+
+.resp-card {
+  background:var(--bg1); border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  animation:respIn 0.4s cubic-bezier(0.16,1,0.3,1) both;
+  position:relative;
+}
+.resp-card:nth-child(1){animation-delay:0s}
+.resp-card:nth-child(2){animation-delay:0.08s}
+.resp-card:nth-child(3){animation-delay:0.16s}
+.resp-card:nth-child(4){animation-delay:0.24s}
+
+@keyframes respIn { from{opacity:0;transform:translateX(-12px)} to{opacity:1;transform:translateX(0)} }
+
+/* left status bar */
+.resp-card::before {
+  content:''; position:absolute;
+  left:0; top:0; bottom:0; width:3px;
+}
+.resp-card.st-dispatched::before { background:var(--red); box-shadow:1px 0 10px var(--red); }
+.resp-card.st-enroute::before   { background:var(--amber); box-shadow:1px 0 10px var(--amber); animation:barPulse 1s ease-in-out infinite; }
+.resp-card.st-onscene::before   { background:var(--green); box-shadow:1px 0 10px var(--green); }
+.resp-card.st-resolved::before  { background:var(--blue); }
+
+@keyframes barPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+.resp-body { padding:0.8rem 0.9rem 0.8rem 1.1rem; }
+
+.resp-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+
+.resp-left { display:flex; align-items:center; gap:10px; }
+
+.resp-icon-box {
+  width:36px; height:36px; border-radius:8px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+  background:var(--bg3); border:1px solid var(--border);
+}
+
+.resp-name { font-weight:700; font-size:0.82rem; color:#fff; margin-bottom:2px; }
+.resp-unit { font-family:var(--mono); font-size:0.6rem; color:var(--text-dim); letter-spacing:0.04em; }
+
+.resp-status-chip {
+  font-family:var(--mono); font-size:0.58rem; font-weight:700;
+  letter-spacing:0.1em; padding:3px 8px; border-radius:3px; text-transform:uppercase;
+  flex-shrink:0;
+}
+.sc-dispatched { color:var(--red); background:var(--red-glow); border:1px solid var(--red-dim); animation:chipP 1s infinite; }
+.sc-enroute    { color:var(--amber); background:var(--amber-dim); border:1px solid var(--amber-dim); }
+.sc-onscene    { color:var(--green); background:var(--green-dim); border:1px solid rgba(0,255,135,0.2); }
+.sc-resolved   { color:var(--blue); background:var(--blue-dim); border:1px solid rgba(14,165,233,0.2); }
+@keyframes chipP { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+/* ETA progress */
+.eta-row { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+
+.eta-track {
+  flex:1; height:3px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden;
+}
+
+.eta-fill {
+  height:100%; border-radius:2px;
+  transition: width 1s linear;
+}
+.ef-dispatched { background:var(--red); }
+.ef-enroute    { background:var(--amber); animation:etaAnim 2s ease-in-out infinite; }
+.ef-onscene    { background:var(--green); }
+.ef-resolved   { background:var(--blue); }
+
+@keyframes etaAnim { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+.eta-text { font-family:var(--mono); font-size:0.62rem; color:var(--text-dim); white-space:nowrap; min-width:50px; text-align:right; }
+
+.resp-action { font-size:0.68rem; color:var(--text-dim); font-style:italic; line-height:1.4; }
+
+/* Action steps inside card */
+.action-steps { margin-top:8px; border-top:1px solid var(--border); padding-top:8px; }
+
+.action-step {
+  display:flex; align-items:flex-start; gap:8px;
+  margin-bottom:5px; font-size:0.68rem; color:var(--text-dim);
+  animation:stepIn 0.4s ease both;
+}
+@keyframes stepIn { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:translateX(0)} }
+
+.step-check {
+  width:16px; height:16px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.55rem; flex-shrink:0; margin-top:1px;
+}
+.step-done  { background:var(--green-dim); color:var(--green); border:1px solid rgba(0,255,135,0.25); }
+.step-doing { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber-dim); animation:chipP 1s infinite; }
+.step-todo  { background:var(--bg3); color:var(--text-faint); border:1px solid var(--border); }
+
+.step-text.done  { color:var(--text-dim); text-decoration:line-through; opacity:0.5; }
+.step-text.doing { color:var(--text); font-weight:600; }
+.step-text.todo  { color:var(--text-faint); }
+
+/* ── FIRST AID PANEL ── */
+.firstaid-panel {
+  background:var(--bg1); border:1px solid rgba(0,255,135,0.2);
+  border-radius:12px; overflow:hidden;
+  animation:fadIn 0.5s ease both 0.3s;
+}
+@keyframes fadIn { from{opacity:0} to{opacity:1} }
+
+.fa-header {
+  background:var(--green-dim); border-bottom:1px solid rgba(0,255,135,0.15);
+  padding:0.65rem 1rem; display:flex; align-items:center; gap:8px;
+}
+.fa-icon { font-size:1rem; }
+.fa-title { font-weight:700; font-size:0.82rem; color:var(--green); }
+.fa-subtitle { font-family:var(--mono); font-size:0.6rem; color:rgba(0,255,135,0.5); margin-left:auto; letter-spacing:0.08em; }
+
+.fa-steps { padding:0.85rem 1rem; }
+
+.fa-step {
+  display:flex; gap:10px; margin-bottom:8px;
+  animation:stepIn 0.4s ease both;
+}
+.fa-num {
+  width:22px; height:22px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--green-dim); color:var(--green); border:1px solid rgba(0,255,135,0.25);
+  font-family:var(--mono); font-size:0.65rem; font-weight:700; margin-top:1px;
+}
+.fa-text { font-size:0.75rem; color:var(--text); line-height:1.5; padding-top:2px; }
+
+/* ── INCIDENT TIMELINE ── */
+.incident-timeline {
+  background:var(--bg1); border:1px solid var(--border); border-radius:12px;
+  max-height:200px; overflow:hidden;
+  animation:fadIn 0.5s ease both 0.5s;
+}
+
+.it-header {
+  padding:0.65rem 1rem; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.it-title { font-family:var(--mono); font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); }
+
+.it-body { padding:0.75rem; max-height:150px; overflow-y:auto; }
+
+.it-item {
+  display:flex; gap:8px; padding:4px 0;
+  border-bottom:1px solid rgba(255,255,255,0.025);
+  animation:tlIn 0.3s ease both;
+}
+
+.it-dot {
+  width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:4px;
+}
+.it-body-text { font-size:0.68rem; color:var(--text-dim); line-height:1.4; flex:1; }
+.it-body-text strong { color:var(--text); font-weight:600; }
+.it-time { font-family:var(--mono); font-size:0.58rem; color:var(--text-faint); white-space:nowrap; margin-left:6px; padding-top:1px; }
+
+/* ── FOOTER ── */
+.footer { text-align:center; margin-top:1.25rem; font-family:var(--mono); font-size:0.6rem; color:var(--text-faint); line-height:1.8; letter-spacing:0.04em; }
+
+/* scrollbar */
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:#1e2a36; border-radius:2px; }
+
+/* dashboard link */
+.dash-links {
+  display:flex; gap:6px; margin-top:0.75rem;
+}
+.dash-link {
+  flex:1; text-align:center; padding:7px;
+  background:var(--bg2); border:1px solid var(--border); border-radius:8px;
+  font-family:var(--mono); font-size:0.62rem; color:var(--text-dim);
+  cursor:pointer; text-decoration:none; transition:all 0.2s; letter-spacing:0.06em;
+}
+.dash-link:hover { border-color:var(--border-hi); color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE MODAL -->
+<div class="modal-overlay" id="langModal">
+  <div class="modal">
+    <div class="mod-title">Select Your Language</div>
+    <div class="mod-sub">VAANI will speak to you in your language</div>
+    <div class="lang-grid">
+      <button class="lang-btn" onclick="selLang('english',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">English</span>
+        <span class="lang-native">English</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('hindi',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Hindi</span>
+        <span class="lang-native">हिंदी</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('hinglish',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Hinglish</span>
+        <span class="lang-native">Hindi + English</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('tamil',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Tamil</span>
+        <span class="lang-native">தமிழ்</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('telugu',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Telugu</span>
+        <span class="lang-native">తెలుగు</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('bengali',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Bengali</span>
+        <span class="lang-native">বাংলা</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('marathi',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Marathi</span>
+        <span class="lang-native">मराठी</span>
+      </button>
+      <button class="lang-btn" onclick="selLang('kannada',this)">
+        <span class="lang-flag">🇮🇳</span>
+        <span class="lang-name">Kannada</span>
+        <span class="lang-native">ಕನ್ನಡ</span>
+      </button>
+    </div>
+    <button class="mod-confirm" id="modConfirmBtn" onclick="confirmLang()" disabled>Connect to VAANI</button>
+    <button class="mod-cancel" onclick="closeMod()">Cancel</button>
+  </div>
+</div>
+
+<!-- MAIN WRAP -->
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">VA<em>A</em>NI</div>
+    <div class="tagline">Voice Adaptive AI for National Intelligence</div>
+    <div class="emergency-badge"><div class="badge-dot"></div>112 EMERGENCY SYSTEM</div>
+  </div>
+
+  <!-- CALL CARD -->
+  <div class="call-card">
+
+    <div class="status-row">
+      <div class="status-dot" id="statusDot"></div>
+      <div class="status-text" id="statusText">Ready to connect</div>
+    </div>
+
+    <!-- Lang badge -->
+    <div class="lang-badge" id="langBadge">
+      <span id="lbFlag"></span>
+      <span id="lbText"></span>
+    </div>
+
+    <!-- Transcript -->
+    <div class="transcript-live" id="transcriptBox">
+      <div class="tl-label">
+        <div class="live-dot" id="liveDot"></div>
+        Live Conversation
+      </div>
+      <div class="tl-empty" id="tlEmpty">Start a call to begin...</div>
+      <div id="tlEntries"></div>
+      <div class="typing-ind" id="typingInd">
+        <div class="td"></div><div class="td"></div><div class="td"></div>
+        <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);margin-left:4px;" id="typingLbl">VAANI responding...</span>
+      </div>
+    </div>
+
+    <!-- Visualizer -->
+    <div class="viz" id="viz"></div>
+
+    <!-- Buttons -->
+    <button class="btn btn-call" id="callBtn" onclick="openMod()">📞 &nbsp; Call 112 Emergency AI</button>
+    <button class="btn btn-end" id="endBtn" onclick="endCall()" disabled>End Call</button>
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🎙 Microphone On</button>
+
+    <!-- Info row -->
+    <div class="info-grid">
+      <div class="ig-cell"><div class="ig-label">Call ID</div><div class="ig-val" id="igCallId">—</div></div>
+      <div class="ig-cell"><div class="ig-label">Duration</div><div class="ig-val" id="igDur">00:00</div></div>
+      <div class="ig-cell"><div class="ig-label">Language</div><div class="ig-val" id="igLang">—</div></div>
+    </div>
+
+    <!-- Dashboard links -->
+    <div class="dash-links">
+      <a class="dash-link" href="dashboard.html" target="_blank">📊 Dispatch Dashboard</a>
+      <a class="dash-link" href="responder.html" target="_blank">🚨 Responder Ops</a>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       LIVE STATUS TRACKER
+  ═══════════════════════════════════════ -->
+  <div class="status-tracker" id="statusTracker">
+
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Live Dispatch Status</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <!-- Incident Header -->
+    <div class="incident-header" id="incidentHeader">
+      <div class="inc-row1">
+        <div class="inc-type-wrap">
+          <div class="inc-emoji" id="incEmoji">🚨</div>
+          <div>
+            <div class="inc-type-label" id="incType">Emergency</div>
+            <div class="inc-id-label" id="incIdLabel">—</div>
+          </div>
+        </div>
+        <div class="inc-sev">
+          <div class="sev-number" id="sevNum">—</div>
+          <div class="sev-label" id="sevLabel">SEVERITY</div>
+        </div>
+      </div>
+      <div class="inc-location">
+        📍 <span id="incLocation">Confirming location...</span>
+      </div>
+    </div>
+
+    <!-- Responder Cards -->
+    <div class="responder-cards" id="responderCards"></div>
+
+    <!-- First Aid Panel -->
+    <div class="firstaid-panel" id="firstAidPanel" style="display:none">
+      <div class="fa-header">
+        <span class="fa-icon">🩺</span>
+        <span class="fa-title">Pre-Arrival First Aid Instructions</span>
+        <span class="fa-subtitle">While help is coming</span>
+      </div>
+      <div class="fa-steps" id="faSteps"></div>
+    </div>
+
+    <!-- Incident Timeline -->
+    <div class="incident-timeline">
+      <div class="it-header">
+        <span class="it-title">Incident Timeline</span>
+        <span style="font-family:var(--mono);font-size:0.55rem;color:var(--text-faint);" id="itCount">0 events</span>
+      </div>
+      <div class="it-body" id="itBody">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-faint);padding:0.5rem;text-align:center;">AWAITING DISPATCH</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Murf Falcon TTS · LiveKit Agents · Deepgram Nova-3 · Groq LLaMA<br/>
+    VAANI — Murf AI Voice Hackathon 2026
+  </div>
+
+</div>
+
+<script>
+const TOKEN_SERVER = "http://localhost:8080";
+let room = null, isMuted = false, callTimer = null, callSeconds = 0, vizInterval = null;
+let selectedLang = null, currentBriefId = null;
+let unitTimers = {}, itEvents = [], respUnits = [];
+const barCount = 22;
+
+const LANG_CFG = {
+  english:  {label:"English",  flag:"🇮🇳", native:"English"},
+  hindi:    {label:"Hindi",    flag:"🇮🇳", native:"हिंदी"},
+  hinglish: {label:"Hinglish", flag:"🇮🇳", native:"Hindi + English"},
+  tamil:    {label:"Tamil",    flag:"🇮🇳", native:"தமிழ்"},
+  telugu:   {label:"Telugu",   flag:"🇮🇳", native:"తెలుగు"},
+  bengali:  {label:"Bengali",  flag:"🇮🇳", native:"বাংলা"},
+  marathi:  {label:"Marathi",  flag:"🇮🇳", native:"मराठी"},
+  kannada:  {label:"Kannada",  flag:"🇮🇳", native:"ಕನ್ನಡ"},
+};
+
+const ETYPE_ICONS = {medical:"🚑",accident:"🚗",fire:"🔥",crime:"🚔",disaster:"🌊",other:"📞"};
+const SEV_LABELS = {1:"MINOR",2:"LOW",3:"MODERATE",4:"HIGH",5:"CRITICAL"};
+
+const UNIT_NAMES = {
+  ambulance:["AMB-01 Central","AMB-07 Koramangala","AMB-12 Whitefield"],
+  police:   ["PCR-04 MG Road","PCR-11 Indiranagar","PCR-08 HSR Layout"],
+  fire:     ["FS-01 Shivajinagar","FS-03 Marathahalli"],
+  ndrf:     ["NDRF-1 Bangalore","NDRF-3 South Zone"]
+};
+
+const UNIT_ICONS = {ambulance:"🚑",police:"🚔",fire:"🔥",ndrf:"🪖"};
+
+const FIRST_AID = {
+  medical:   ["Check if they are conscious — tap their shoulder firmly","Tilt head back gently to open the airway","If not breathing, begin CPR — 30 hard compressions","Do not give food or water","Keep them warm and still until ambulance arrives"],
+  accident:  ["Do not move injured persons — spinal injury risk","Turn on hazard lights and move bystanders back","Apply firm pressure to any bleeding wounds with cloth","Do not remove objects embedded in wounds","Stay with the injured and keep them talking"],
+  fire:      ["Get everyone out immediately — do not collect belongings","Stay low — smoke rises, cleaner air near the floor","Close doors behind you to slow fire spread","Do not use the elevator under any circumstances","Once outside — do not go back in for any reason"],
+  crime:     ["Move away from the threat if you safely can","Do not confront the attacker","If hiding — silence your phone completely","Text your exact location if voice is unsafe","Stay on the line with VAANI until police arrive"],
+  disaster:  ["Move to highest available floor if flooding","Do not attempt to cross flooded roads or water","Stay away from power lines and electrical equipment","Keep your phone charged and conserve battery","Signal from windows or rooftops if trapped"],
+  other:     ["Stay calm and remain in a safe location","Keep the injured person still and comfortable","Do not administer medication without guidance","Keep the line open with VAANI","Follow all instructions given by VAANI"]
+};
+
+// ── BUILD VISUALIZER ──
+const viz = document.getElementById("viz");
+for (let i=0;i<barCount;i++){
+  const b=document.createElement("div"); b.className="vbar"; b.style.height="3px";
+  viz.appendChild(b);
+}
+
+// ── HELPERS ──
+function setStatus(html, type) {
+  document.getElementById("statusDot").className = "status-dot " + type;
+  document.getElementById("statusText").innerHTML = html;
+}
+
+function nowTime() {
+  return new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+}
+
+function startTimer() {
+  callSeconds=0;
+  callTimer=setInterval(()=>{
+    callSeconds++;
+    const m=String(Math.floor(callSeconds/60)).padStart(2,"0");
+    const s=String(callSeconds%60).padStart(2,"0");
+    document.getElementById("igDur").textContent=`${m}:${s}`;
+  },1000);
+}
+function stopTimer(){ if(callTimer) clearInterval(callTimer); }
+
+function startViz(mode) {
+  const bars=document.querySelectorAll(".vbar");
+  if(vizInterval) clearInterval(vizInterval);
+  if(!mode){ bars.forEach(b=>{b.style.height="3px";b.className="vbar";}); return; }
+  const cls = mode==="vaani"?"vbar r":"vbar g";
+  vizInterval=setInterval(()=>{
+    bars.forEach(b=>{b.style.height=(Math.floor(Math.random()*28)+3)+"px";b.className=cls;});
+  },80);
+}
+
+function clearTranscript() {
+  document.getElementById("tlEntries").innerHTML="";
+  document.getElementById("tlEmpty").style.display="flex";
+  hideTyping(); setLiveDot(false);
+}
+
+function setLiveDot(on) {
+  document.getElementById("liveDot").className="live-dot"+(on?" on":"");
+}
+
+function showTyping(speaker) {
+  const ind=document.getElementById("typingInd");
+  document.getElementById("typingLbl").textContent = speaker==="vaani"?"VAANI responding...":"Listening...";
+  ind.className="typing-ind on";
+}
+function hideTyping(){ document.getElementById("typingInd").className="typing-ind"; }
+
+function addTranscriptEntry(speaker, text, lang) {
+  document.getElementById("tlEmpty").style.display="none";
+  const isV=speaker==="vaani";
+  const entries=document.getElementById("tlEntries");
+  const fontMap = {hindi:"Noto Sans Devanagari",tamil:"Noto Sans Tamil",telugu:"Noto Sans Telugu",bengali:"Noto Sans Bengali",marathi:"Noto Sans Devanagari",kannada:"Noto Sans Kannada"};
+  const font = fontMap[lang||"english"] || "Syne";
+  const e=document.createElement("div"); e.className="tl-entry";
+  e.innerHTML=`
+    <div class="tl-avatar ${isV?"av-vaani":"av-you"}">${isV?"AI":"YOU"}</div>
+    <div class="tl-bubble-wrap">
+      <div class="tl-name ${isV?"v":"y"}">${isV?"VAANI":"You"}</div>
+      <div class="tl-text ${isV?"vt":"yt"}" style="font-family:'${font}',var(--sans)">${text}</div>
+    </div>`;
+  entries.appendChild(e);
+  document.getElementById("transcriptBox").scrollTop=99999;
+}
+
+// ── MODAL ──
+function openMod(){ document.getElementById("langModal").className="modal-overlay on"; }
+function closeMod(){ document.getElementById("langModal").className="modal-overlay"; }
+function selLang(lang, btn) {
+  selectedLang=lang;
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("sel"));
+  btn.classList.add("sel");
+  const btn2=document.getElementById("modConfirmBtn");
+  btn2.disabled=false;
+  btn2.textContent=`Connect in ${LANG_CFG[lang].label} (${LANG_CFG[lang].native})`;
+}
+async function confirmLang(){ closeMod(); await startCall(selectedLang); }
+
+// ══════════════════════════════════════════
+//  STATUS TRACKER FUNCTIONS
+// ══════════════════════════════════════════
+
+function addIncidentEvent(dotColor, html) {
+  const body=document.getElementById("itBody");
+  const item=document.createElement("div"); item.className="it-item";
+  item.innerHTML=`
+    <div class="it-dot" style="background:${dotColor};box-shadow:0 0 5px ${dotColor}"></div>
+    <div class="it-body-text">${html}</div>
+    <div class="it-time">${nowTime()}</div>`;
+  if(body.children.length===1 && body.children[0].style) body.innerHTML="";
+  body.insertBefore(item,body.firstChild);
+  itEvents.unshift({html,time:nowTime()});
+  document.getElementById("itCount").textContent=`${itEvents.length} events`;
+}
+
+function showTracker() {
+  document.getElementById("statusTracker").className="status-tracker on";
+  setTimeout(()=>document.getElementById("statusTracker").scrollIntoView({behavior:"smooth",block:"start"}),200);
+}
+
+function populateIncidentHeader(brief) {
+  const em=brief.emergency||{}, sev=brief.severity||1;
+  document.getElementById("incEmoji").textContent=ETYPE_ICONS[em.type]||"🚨";
+  document.getElementById("incType").textContent=em.type||"Emergency";
+  document.getElementById("incIdLabel").textContent=brief.call_id||"—";
+  document.getElementById("incLocation").textContent=em.location||"Location confirming...";
+
+  const sevEl=document.getElementById("sevNum");
+  sevEl.textContent=sev;
+  sevEl.className="sev-number s"+Math.min(5,sev);
+  document.getElementById("sevLabel").textContent=SEV_LABELS[sev]||"UNKNOWN";
+}
+
+function buildResponderCards(responders, location) {
+  const container=document.getElementById("responderCards");
+  container.innerHTML="";
+  respUnits=[];
+
+  responders.forEach((rtype,i)=>{
+    const names=UNIT_NAMES[rtype]||[rtype.toUpperCase()+"-01"];
+    const name=names[Math.floor(Math.random()*names.length)];
+    const etaMins=4+Math.floor(Math.random()*7);
+    const uid=`unit-${rtype}-${i}`;
+    const unit={id:uid,type:rtype,name,status:"dispatched",eta:`${etaMins} min`,location,etaMins};
+    respUnits.push(unit);
+    renderUnitCard(unit, container, i);
+
+    // Progress through statuses
+    setTimeout(()=>advanceUnit(uid, "enroute"), 3000+i*800);
+    setTimeout(()=>advanceUnit(uid, "onscene"), (etaMins*60*1000*0.4)+i*500);
+    setTimeout(()=>advanceUnit(uid, "resolved"), (etaMins*60*1000)+i*600);
+  });
+}
+
+function renderUnitCard(unit, container, idx) {
+  const existing=document.getElementById(unit.id);
+  const steps=getSteps(unit.type, unit.status);
+  const pct=getPct(unit.status);
+  const card=document.createElement("div");
+  card.id=unit.id;
+  card.className=`resp-card st-${unit.status}`;
+  card.style.animationDelay=`${idx*0.08}s`;
+  card.innerHTML=`
+    <div class="resp-body">
+      <div class="resp-top">
+        <div class="resp-left">
+          <div class="resp-icon-box">${UNIT_ICONS[unit.type]||"🚨"}</div>
+          <div>
+            <div class="resp-name">${getTypeLabel(unit.type)}</div>
+            <div class="resp-unit">${unit.name}</div>
+          </div>
+        </div>
+        <span class="resp-status-chip sc-${unit.status}">${unit.status}</span>
+      </div>
+      <div class="eta-row">
+        <div class="eta-track"><div class="eta-fill ef-${unit.status}" id="etafill-${unit.id}" style="width:${pct}%"></div></div>
+        <span class="eta-text" id="etatext-${unit.id}">${unit.status==="onscene"?"On scene":unit.status==="resolved"?"Resolved":unit.eta}</span>
+      </div>
+      <div class="resp-action" id="action-${unit.id}">${getAction(unit.type,unit.status,unit.location)}</div>
+      <div class="action-steps" id="steps-${unit.id}">${renderSteps(steps)}</div>
+    </div>`;
+  if(existing) existing.replaceWith(card);
+  else container.appendChild(card);
+}
+
+function advanceUnit(uid, newStatus) {
+  const unit=respUnits.find(u=>u.id===uid);
+  if(!unit||unit.status===newStatus) return;
+  const prev=unit.status;
+  unit.status=newStatus;
+
+  const card=document.getElementById(uid);
+  if(!card) return;
+
+  card.className=`resp-card st-${newStatus}`;
+  const chip=card.querySelector(`.resp-status-chip`);
+  if(chip){ chip.className=`resp-status-chip sc-${newStatus}`; chip.textContent=newStatus; }
+
+  const fill=document.getElementById(`etafill-${uid}`);
+  if(fill){ fill.className=`eta-fill ef-${newStatus}`; fill.style.width=getPct(newStatus)+"%"; }
+
+  const etaText=document.getElementById(`etatext-${uid}`);
+  if(etaText) etaText.textContent=newStatus==="onscene"?"On scene":newStatus==="resolved"?"Resolved":unit.eta;
+
+  const actionEl=document.getElementById(`action-${uid}`);
+  if(actionEl) actionEl.textContent=getAction(unit.type,newStatus,unit.location);
+
+  const stepsEl=document.getElementById(`steps-${uid}`);
+  if(stepsEl){ const steps=getSteps(unit.type,newStatus); stepsEl.innerHTML=renderSteps(steps); }
+
+  const msgs={
+    enroute:{color:"var(--amber)",html:`<strong>${getTypeLabel(unit.type)}</strong> (${unit.name}) en route → ${unit.location} · ETA ${unit.eta}`},
+    onscene:{color:"var(--green)",html:`<strong>${getTypeLabel(unit.type)}</strong> (${unit.name}) <strong>arrived on scene</strong> at ${unit.location}`},
+    resolved:{color:"var(--blue)",html:`<strong>${getTypeLabel(unit.type)}</strong> (${unit.name}) — situation managed · returning to base`}
+  };
+  if(msgs[newStatus]) addIncidentEvent(msgs[newStatus].color, msgs[newStatus].html);
+}
+
+function getPct(status){ return {dispatched:15,enroute:55,onscene:100,resolved:100}[status]||0; }
+
+function getTypeLabel(type){ return {ambulance:"Ambulance",police:"Police",fire:"Fire Brigade",ndrf:"NDRF Unit"}[type]||type; }
+
+function getAction(type, status, loc) {
+  if(status==="dispatched") return `Dispatched to ${loc||"incident location"}`;
+  if(status==="enroute") return `En route — navigating to ${loc||"incident"}`;
+  if(status==="onscene") return `On scene — active response initiated`;
+  if(status==="resolved") return "Situation managed — returning to base";
+  return "";
+}
+
+function getSteps(type, status) {
+  const allSteps = {
+    ambulance: ["Unit dispatched","En route to scene","Arrived on scene","Patient assessment","Treatment initiated","Transport to hospital"],
+    police:    ["Unit dispatched","En route to scene","Perimeter established","Scene secured","Report filed","Unit available"],
+    fire:      ["Unit dispatched","En route to scene","Equipment deployed","Fire suppression active","Scene cleared","Unit available"],
+    ndrf:      ["Unit dispatched","En route to scene","Team deployed","Rescue operation active","Evacuation complete","Unit available"]
+  };
+  const steps = allSteps[type]||allSteps.ambulance;
+  const statusIdx = {dispatched:0,enroute:1,onscene:2,resolved:5}[status]||0;
+  return steps.map((s,i)=>({
+    text:s,
+    state: i<statusIdx?"done": i===statusIdx?"doing":"todo"
+  }));
+}
+
+function renderSteps(steps) {
+  return steps.map(s=>`
+    <div class="action-step">
+      <div class="step-check step-${s.state}">${s.state==="done"?"✓":s.state==="doing"?"→":""}</div>
+      <span class="step-text ${s.state}">${s.text}</span>
+    </div>`).join('');
+}
+
+function showFirstAid(etype) {
+  const steps=FIRST_AID[etype]||FIRST_AID.other;
+  const panel=document.getElementById("firstAidPanel");
+  panel.style.display="block";
+  document.getElementById("faSteps").innerHTML=steps.map((s,i)=>`
+    <div class="fa-step" style="animation-delay:${i*0.08}s">
+      <div class="fa-num">${i+1}</div>
+      <div class="fa-text">${s}</div>
+    </div>`).join('');
+}
+
+function dispatchFromBrief(brief) {
+  // Update even if same call — location may have refined
+  const isNew = brief.call_id !== currentBriefId;
+  currentBriefId = brief.call_id;
+
+  const em = brief.emergency || {};
+  const dispatch = brief.dispatch || {};
+  const responders = dispatch.recommended_responders || [];
+
+  // Always update location even if not new
+  if (em.location) {
+    document.getElementById("incLocation").textContent = em.location;
+  }
+
+  // Only dispatch units on new brief
+  if (!isNew || !responders.length) return;
+
+  showTracker();
+  populateIncidentHeader(brief);
+  buildResponderCards(responders, em.location || "Incident location");
+  showFirstAid(em.type || "other");
+
+  addIncidentEvent("var(--red)", `🚨 <strong>VAANI DISPATCH</strong> — ${(em.type||"emergency").toUpperCase()} at ${em.location||"unknown"} · Severity ${brief.severity||1}/5`);
+  addIncidentEvent("var(--amber)", `Responders dispatched: ${responders.map(r=>getTypeLabel(r)).join(", ")}`);
+  addIncidentEvent("var(--green)", "First aid instructions activated for caller");
+}
+
+// ── POLL SERVER FOR DISPATCH BRIEFS ──
+let lastBriefCount=0;
+async function pollBriefs() {
+  try {
+    const r = await fetch(`${TOKEN_SERVER}/briefs?limit=1`);
+    const briefs = await r.json();
+    if (briefs.length > 0) {
+      dispatchFromBrief(briefs[0]);
+    }
+  } catch(e) {
+    console.log("Server poll failed:", e);
+  }
+}
+
+// ── MAIN CALL ──
+async function startCall(language) {
+  // Reset incident tracker for new call
+  currentBriefId = null;
+  document.getElementById("statusTracker").className = "status-tracker";
+  document.getElementById("responderCards").innerHTML = "";
+  document.getElementById("itBody").innerHTML = 
+    `<div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-faint);padding:0.5rem;text-align:center;">AWAITING DISPATCH</div>`;
+  itEvents = [];
+  respUnits = {};
+  document.getElementById("itCount").textContent = "0 events";
+  document.getElementById("firstAidPanel").style.display = "none";
+}
+  // ... rest of function stays same
+
+async function startCall(language) {
+  setStatus("Connecting to VAANI...", "connecting");
+  document.getElementById("callBtn").disabled=true;
+  document.getElementById("igLang").textContent=LANG_CFG[language]?.label||language;
+  clearTranscript();
+
+  const badge=document.getElementById("langBadge");
+  document.getElementById("lbFlag").textContent=LANG_CFG[language]?.flag||"🇮🇳";
+  document.getElementById("lbText").textContent=`Speaking ${LANG_CFG[language]?.label} (${LANG_CFG[language]?.native})`;
+  badge.className="lang-badge on";
+
+  try {
+    const res=await fetch(`${TOKEN_SERVER}/token?language=${language}`);
+    const data=await res.json();
+    document.getElementById("igCallId").textContent=data.room?.split("-")[1]?.toUpperCase().slice(0,6)||"—";
+
+    room = new LivekitClient.Room({
+    audioCaptureDefaults: {
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: false,
+    },
+    audioOutput: {
+        deviceId: undefined,
+    },
+    dynacast: false,
+    adaptiveStream: false,
+});
+  // Force higher audio quality for Indian language voices
+await room.localParticipant?.setMicrophoneEnabled(false).catch(()=>{});
+
+    room.on(LivekitClient.RoomEvent.Connected,()=>{
+      setStatus(`<strong>VAANI connected</strong> — Speaking ${LANG_CFG[language]?.label}`,"connected");
+      document.getElementById("endBtn").disabled=false;
+      setLiveDot(true); startTimer(); showTyping("vaani");
+    });
+
+    room.on(LivekitClient.RoomEvent.Disconnected,()=>{
+      setStatus("Call ended — Ready for next call","ready");
+      document.getElementById("callBtn").disabled=false;
+      document.getElementById("endBtn").disabled=false;
+      stopTimer(); startViz(null); setLiveDot(false); hideTyping();
+      badge.className="lang-badge";
+    });
+
+    room.on(LivekitClient.RoomEvent.TrackSubscribed,(track)=>{
+      if(track.kind===LivekitClient.Track.Kind.Audio){
+        const el=track.attach(); el.style.display="none"; document.body.appendChild(el);
+        hideTyping(); startViz("vaani");
+      }
+    });
+
+    room.on(LivekitClient.RoomEvent.TrackUnsubscribed,(track)=>{
+      if(track.kind===LivekitClient.Track.Kind.Audio){ startViz("user"); showTyping("user"); }
+    });
+
+    room.on(LivekitClient.RoomEvent.TranscriptionReceived,(segments,participant)=>{
+      segments.forEach(seg=>{
+        if(!seg.text?.trim()) return;
+        const isAgent=!participant||participant.isAgent||participant.identity?.startsWith("agent");
+        if(seg.final){
+          hideTyping();
+          addTranscriptEntry(isAgent?"vaani":"you", seg.text, language);
+          startViz(isAgent?"vaani":"user");
+          if(!isAgent) showTyping("vaani");
+        }
+      });
+    });
+
+    await room.connect(data.livekit_url, data.token);
+    await room.localParticipant.setMicrophoneEnabled(true);
+
+    // Start polling for dispatch briefs
+    pollBriefs();
+    setInterval(pollBriefs, 2000);
+
+  } catch(err){
+    console.error(err);
+    setStatus("Connection failed — check server","error");
+    document.getElementById("callBtn").disabled=false;
+    badge.className="lang-badge";
+  }
+}
+
+async function endCall() {
+  if(room){ await room.disconnect(); room=null; }
+  stopTimer(); startViz(null);
+}
+
+async function toggleMute() {
+  if(!room) return;
+  isMuted=!isMuted;
+  await room.localParticipant.setMicrophoneEnabled(!isMuted);
+  const btn=document.getElementById("muteBtn");
+  btn.textContent=isMuted?"🔇 Microphone Off":"🎙 Microphone On";
+  btn.className=isMuted?"mute-btn muted":"mute-btn";
+  startViz(isMuted?null:"user");
+}
+
+// Health check
+fetch(`${TOKEN_SERVER}/health`)
+  .then(r=>r.json())
+  .then(()=>setStatus("VAANI ready — Press call to connect","ready"))
+  .catch(()=>setStatus("Token server offline — run server.py","error"));
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "call_id": "VAANI-1F65EA33",
+  "generated_at": "2026-03-19T18:35:22.403185",
+  "priority": "immediate",
+  "severity": 4,
+  "severity_label": "HIGH",
+  "emergency": {
+    "type": "accident",
+    "location": "near Salarjan Museum, Hyderabad",
+    "people_affected": null,
+    "details": "accident near Charminar, within 100 meters of Salarjan Museum"
+  },
+  "caller": {
+    "condition": "unknown",
+    "language": "hindi",
+    "name": null
+  },
+  "dispatch": {
+    "recommended_responders": [
+      "ambulance",
+      "police"
+    ],
+    "first_aid_given": false,
+    "follow_up_required": false,
+    "triage_complete": false
+  },
+  "call_duration_seconds": 37
+}
